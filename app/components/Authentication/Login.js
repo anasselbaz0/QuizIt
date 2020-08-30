@@ -71,15 +71,15 @@ function Login() {
               : null
           }
         />
-        <div className="flex">
+        <div className="flex mb-0">
           <Button type="reset" outlined onClick={() => formik.resetForm()}>
             Clear
           </Button>
-          <Button disabled={!formik.isValid} type="submit">
+          <Button className="ml-1 md:ml-2" disabled={!formik.isValid} type="submit">
             {panel === LOGIN ? 'Login' : 'Signup'}
           </Button>
         </div>
-        <div className="text-right">
+        <div className="text-right mt-1 md:mt-2">
           <Link onClick={() => switchPanel()}>
             {panel === LOGIN ? 'Signup' : 'Login'}
           </Link>

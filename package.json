@@ -13,6 +13,7 @@
   "author": "Max Stoiber",
   "license": "MIT",
   "scripts": {
+    "deploy": "npm run build && firebase deploy",
     "build:tailwind": "tailwindcss build app/styles/tailwind.css -o app/styles/main.css",
     "prestart": "npm run build:tailwind",
     "prebuild": "npm run build:clean",
