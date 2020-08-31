@@ -17,7 +17,7 @@ const Input = props => (
     </label>
     <input
       className={clsx(
-        ' bg-gray-200  appearance-none rounded-md w-full p-4 md:p-6 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline',
+        ' bg-gray-200  appearance-none rounded-sm w-full p-4 md:p-6 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline',
         props.error && 'border border-red-500',
         props.className || '',
       )}

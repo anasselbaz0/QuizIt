@@ -9,6 +9,7 @@ import { LOGIN, SIGNUP } from './Auth.constants';
 import Title from '../Title';
 import Loader from '../Loader/Loader';
 import Link from '../Link/Link';
+import ButtonGroup from '../Button/ButtonGroup';
 
 function Login() {
   const [panel, setPanel] = useState(LOGIN);
@@ -47,6 +48,7 @@ function Login() {
         onSubmit={formik.handleSubmit}
       >
         <Input
+          focus
           label="Email"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -72,12 +74,14 @@ function Login() {
           }
         />
         <div className="flex mb-0">
-          <Button type="reset" outlined onClick={() => formik.resetForm()}>
-            Clear
-          </Button>
-          <Button className="ml-1 md:ml-2" disabled={!formik.isValid} type="submit">
-            {panel === LOGIN ? 'Login' : 'Signup'}
-          </Button>
+          <ButtonGroup>
+            <Button type="reset" outlined onClick={() => formik.resetForm()}>
+              Clear
+            </Button>
+            <Button className="md:ml-2" disabled={!formik.isValid} type="submit">
+              {panel === LOGIN ? 'Login' : 'Signup'}
+            </Button>
+          </ButtonGroup>
         </div>
         <div className="text-right mt-1 md:mt-2">
           <Link onClick={() => switchPanel()}>

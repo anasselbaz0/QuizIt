@@ -13,7 +13,7 @@ function Auth() {
         Create your own Quizzes{' '}
       </div>
       <div
-        className="shadow-md rounded-md bg-white p-2 md:p-4 py-2 md:py-4 w-4/5 max-w-xl flex flex-col"
+        className="shadow-md rounded-sm bg-white p-2 md:p-4 py-2 md:py-4 w-4/5 max-w-xl flex flex-col"
       >
         <Login />
       </div>
