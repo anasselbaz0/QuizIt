@@ -2,30 +2,22 @@ import React, { useState } from 'react';
 import { Paper, Stepper, Step } from '@material-ui/core';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../Input/Input';
 import Title from '../Title';
 import AddQuestion from './Questions/AddQuestion';
 import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
-import Question from './Question';
+import { addQuiz, setTitle } from './state/actions';
+import QuestionList from './Questions/QuestionList';
 
 const CreateQuiz = () => {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      questions: ['qu1', 'qu2', 'qu3', 'qu4', 'qu5'],
-    },
-    validationSchema: Yup.object({
-      title: Yup.string().required('Required'),
-      questions: Yup.array().required('Required'),
-    }),
-    validateOnChange: true,
-    onSubmit: values => {
-      // alert(JSON.stringify(values));
-    },
-  });
+  const dispatch = useDispatch();
+  const [activeStep, setActiveStep] = useState(0);
+  const [addQuestion, setAddQuestion] = useState(false);
+  const title = useSelector(state => state.quiz.title);
+  const questions = useSelector(state => state.quiz.questions);
+  const correct = useSelector(state => state.quiz.correct);
 
   function getSteps() {
     return ['Quiz title', 'Questions', 'Validation'];
@@ -37,113 +29,105 @@ const CreateQuiz = () => {
         return (
           <Input
             label="Title"
-            placeholder="Quiz title here"
-            value={formik.values.title}
-            onChange={formik.handleChange}
+            placeholder="Quiz title here ..."
+            value={title}
+            onChange={e => dispatch(setTitle(e.target.value))}
+            className="text-2xl"
           />
         );
       case 1:
         return (
-          <div>
-            {formik.values.questions.map((question, index) => (
-              <div key={index} className="w-full flex justify-between">
-                <Question>{question}</Question>
-                <Button
-                  color="red"
-                  className="ml-2"
-                  outlined
-                  onClick={() => {
-                    for (let i = 0; i < formik.values.questions.length; i++) {
-                      if (i === index) {
-                        formik.values.questions.splice(i, 1);
-                      }
-                    }
-                  }}
-                >
-                  {' '}
-                  Remove Question{' '}
-                </Button>
-              </div>
-            ))}
-            <Button outlined onClick={() => formik.values.questions.push('hi')}>
-              {' '}
-              Add Question{' '}
-            </Button>
-          </div>
+          <React.Fragment>
+            <QuestionList list={questions} />
+            <AddQuestion />
+          </React.Fragment>
         );
       case 2:
-        return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+        return (
+          <div>
+            <QuestionList list={questions} />
+          </div>
+        );
       default:
         return 'Unknown step';
     }
   }
 
-  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-
-  const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  const handleNext = e => {
+    console.log(activeStep);
+    if (activeStep === steps.length + 1) e.preventDefault();
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep(activeStep - 1);
   };
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
-  if (activeStep === steps.length) {
-    formik.submitForm().then(r => alert(JSON.stringify(r)));
-  }
-
   return (
     <div className="h-full flex-1 p-2 md:p-4 bg-white rounded-sm shadow-sm m-2">
       <Title> Create a new Quiz </Title>
-      <form onSubmit={formik.handleSubmit}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => (
-            <Step key={label}>
-              <StepLabel>
-                {' '}
-                <span className="text-gray-500 font-bold"> {label} </span>
-              </StepLabel>
-              <StepContent>
-                {getStepContent(index)}
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>
+              <span className="text-gray-500 font-bold"> {label} </span>
+            </StepLabel>
+            <StepContent>
+              {getStepContent(index)}
+              {!addQuestion && (
                 <div className="text-right w-full">
                   <ButtonGroup>
-                    <Button disabled={activeStep === 0} onClick={handleBack}>
-                      {' '}
-                      Back{' '}
-                    </Button>
                     <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
+                      outlined
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
                     >
+                      Back
+                    </Button>
+                    <Button onClick={handleNext}>
                       {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                     </Button>
                   </ButtonGroup>
                 </div>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-      </form>
+              )}
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
 
-      {activeStep === steps.length && (
-        <Paper square elevation={0} className="">
-          All steps completed - you&apos;re finished
-          <Button onClick={handleReset} className="">
-            Reset
-          </Button>
+      {activeStep === steps.length ? (
+        <Paper
+          square
+          elevation={0}
+          className="ml-8 mb-4 flex flex-col md:flex-row justify-between items-end"
+        >
+          <div className="text-left flex-1 w-full mb-2">
+            {' '}
+            All steps completed - you&apos;re finished
+          </div>
+          <ButtonGroup>
+            <Button outlined onClick={handleReset}>
+              Reset
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(title);
+                console.log(questions);
+                console.log(correct);
+                dispatch(addQuiz(title, questions, correct));
+              }}
+            >
+              Create Quiz
+            </Button>
+          </ButtonGroup>
         </Paper>
-      )}
+      ) : null}
     </div>
   );
 };
-
 export default CreateQuiz;
