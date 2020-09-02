@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux';
 import Item from '../Item';
 import SubTitle from '../../SubTitle';
 
-const QuestionList = props => 
-// Display a question and it's answers
+const QuestionList = props => (
+  // Display a question and it's answers
 
-  (
-    <div className="w-full">
+  <div className="w-full">
     <SubTitle> Questions </SubTitle>
     {props.list.map((item, index) => (
       <div
