@@ -15,7 +15,7 @@ export default function App() {
   const loggedIn = useSelector(state => state.auth.loggedIn);
   const profile = useSelector(state => state.auth.profile);
   return (
-    <div className="font-sans h-screen bg-gray-200">
+    <div className="font-sans min-h-screen bg-gray-200">
       <Helmet titleTemplate="%s - Quiz It" defaultTitle="Quiz It">
         <meta name="description" content="Quiz It" />
       </Helmet>

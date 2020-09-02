@@ -9,6 +9,7 @@ import history from 'utils/history';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import authReducer from './components/Authentication/Auth.reducer';
+import quizReducer from './components/Quizzes/state/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -16,6 +17,7 @@ import authReducer from './components/Authentication/Auth.reducer';
 export default function createReducer(
   injectedReducers = {
     auth: authReducer,
+    quiz: quizReducer,
   },
 ) {
   const rootReducer = combineReducers({

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Quizzes = props => (
-  <div className="font-serif text-2xl md:text-3xl font-bold text-teal-800">
+  <div className="font-serif w-full text-left text-xl md:text-2xl font-bold text-teal-600">
     {' '}
     {props.children}{' '}
   </div>
