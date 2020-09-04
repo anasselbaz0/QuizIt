@@ -37,8 +37,7 @@ const QuestionList = props => {
                         : ''
                     }
                   >
-                    {' '}
-                    {answer}{' '}
+                    {answer}
                   </span>
                 </div>
               ))}

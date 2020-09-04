@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import Profile from '../../components/Profile/Profile';
 import Quizzes from '../../components/Quizzes/Quizzes';
 import CreateQuiz from '../../components/Quizzes/CreateQuiz';
+import Welcome from '../../components/Welcome/Welcome';
 
 export const App = () => {
   const loggedIn = useSelector(state => state.auth.loggedIn);
@@ -23,24 +24,11 @@ export const App = () => {
       <div className="md:flex">
         <Switch>
           <React.Fragment>
-            <Route
-              exact
-              path="/"
-              component={loggedIn && profile ? HomePage : Auth}
-            />
+            <Route exact path="/" component={loggedIn ? HomePage : Welcome} />
             {/* <Switch> */}
-            <Route
-              path="/quizzes"
-              component={loggedIn && profile ? Quizzes : Auth}
-            />
-            <Route
-              path="/profile"
-              component={loggedIn && profile ? Profile : Auth}
-            />
-            <Route
-              path="/create"
-              component={loggedIn && profile ? CreateQuiz : Auth}
-            />
+            <Route path="/quizzes" component={loggedIn ? Quizzes : Auth} />
+            <Route path="/profile" component={loggedIn ? Profile : Auth} />
+            <Route path="/create" component={loggedIn ? CreateQuiz : Auth} />
           </React.Fragment>
         </Switch>
       </div>
