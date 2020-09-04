@@ -42,15 +42,15 @@ const CreateQuiz = () => {
       case 1:
         return (
           <React.Fragment>
-            <QuestionList/>
-            <AddQuestion/>
+            <QuestionList />
+            <AddQuestion />
           </React.Fragment>
         );
       case 2:
         return (
           <React.Fragment>
             <SubTitle> Quiz : {title || ''} </SubTitle>
-            <QuestionList/>
+            <QuestionList />
           </React.Fragment>
         );
       default:
@@ -86,16 +86,29 @@ const CreateQuiz = () => {
               {getStepContent(index)}
               <div className="text-right w-full">
                 <ButtonGroup>
-                  <Button outlined disabled={activeStep === 0} onClick={handleBack}> Back </Button>
-                  {activeStep === steps.length - 1 && <Button outlined onClick={handleReset}> Reset </Button>}
+                  <Button
+                    outlined
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                  >
+                    {' '}
+                    Back{' '}
+                  </Button>
+                  {activeStep === steps.length - 1 && (
+                    <Button outlined onClick={handleReset}>
+                      {' '}
+                      Reset{' '}
+                    </Button>
+                  )}
                   <Button
                     onClick={() => {
-                      if (activeStep === steps.length - 1) dispatch(addQuiz(title, questions, correct, uid));
+                      if (activeStep === steps.length - 1)
+                        dispatch(addQuiz(title, questions, correct, uid));
                       handleNext();
-                    }}>
+                    }}
+                  >
                     {activeStep === steps.length - 1 ? 'Create Quiz' : 'Next'}
                   </Button>
-
                 </ButtonGroup>
               </div>
             </StepContent>
