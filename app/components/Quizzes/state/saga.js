@@ -17,4 +17,3 @@ export function* addQuiz(action) {
     yield put(addQuizFail(error));
   }
 }
-

@@ -16,16 +16,16 @@ export const addQuiz = (title, questions, correct, uid) => ({
   title,
   questions,
   correct,
-  uid
+  uid,
 });
 
 export const addQuizSuccess = () => ({
   type: ADD_QUIZ_SUCCESS,
 });
 
-export const addQuizFail = (error) => ({
+export const addQuizFail = error => ({
   type: ADD_QUIZ_FAIL,
-  error
+  error,
 });
 
 export const resetAll = () => ({

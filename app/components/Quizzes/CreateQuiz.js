@@ -17,7 +17,9 @@ const CreateQuiz = () => {
   const [activeStep, setActiveStep] = useState(0);
   const title = useSelector(state => state.quiz.title);
   const questions = useSelector(state => state.quiz.questions);
-  const quiz = useSelector(state => state.quiz.quizzes[state.quiz.quizzes.length - 1]) || null;
+  const quiz =
+    useSelector(state => state.quiz.quizzes[state.quiz.quizzes.length - 1]) ||
+    null;
   const correct = useSelector(state => state.quiz.correct);
   const uid = useSelector(state => state.auth.profile.uid);
 
@@ -41,13 +43,13 @@ const CreateQuiz = () => {
         return (
           <React.Fragment>
             <QuestionList/>
-            <AddQuestion />
+            <AddQuestion/>
           </React.Fragment>
         );
       case 2:
         return (
           <React.Fragment>
-            <SubTitle> Quiz : {title || ""} </SubTitle>
+            <SubTitle> Quiz : {title || ''} </SubTitle>
             <QuestionList/>
           </React.Fragment>
         );
@@ -82,26 +84,20 @@ const CreateQuiz = () => {
             </StepLabel>
             <StepContent>
               {getStepContent(index)}
-                <div className="text-right w-full">
-                  <ButtonGroup>
-                    <Button
-                      outlined
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                    >
-                      Back
-                    </Button>
-                    {activeStep === steps.length - 1 && <Button outlined onClick={handleReset}>
-                      Reset
-                      </Button>}
-                    <Button onClick={() => {
+              <div className="text-right w-full">
+                <ButtonGroup>
+                  <Button outlined disabled={activeStep === 0} onClick={handleBack}> Back </Button>
+                  {activeStep === steps.length - 1 && <Button outlined onClick={handleReset}> Reset </Button>}
+                  <Button
+                    onClick={() => {
                       if (activeStep === steps.length - 1) dispatch(addQuiz(title, questions, correct, uid));
                       handleNext();
                     }}>
-                      {activeStep === steps.length - 1 ? 'Create Quiz' : 'Next'}
-                    </Button>
-                  </ButtonGroup>
-                </div>
+                    {activeStep === steps.length - 1 ? 'Create Quiz' : 'Next'}
+                  </Button>
+
+                </ButtonGroup>
+              </div>
             </StepContent>
           </Step>
         ))}
@@ -119,14 +115,19 @@ const CreateQuiz = () => {
           <div className="font-bold flex-1">
             <div>
               <span className="text-xl text-gray-500 pr-4">Quiz title</span>
-              <span className="text-gray-800 text-2xl md:text-3xl text-right">{quiz.title}</span>
+              <span className="text-gray-800 text-2xl md:text-3xl text-right">
+                {quiz.title}
+              </span>
             </div>
             <div>
-              <span className="text-xl text-gray-500 pr-4">Copy the quiz ID</span>
-              <span className="text-teal-400 text-2xl md:text-3xl text-right">{quiz.id}</span>
+              <span className="text-xl text-gray-500 pr-4">
+                Copy the quiz ID
+              </span>
+              <span className="text-teal-400 text-2xl md:text-3xl text-right">
+                {quiz.id}
+              </span>
             </div>
           </div>
-
         </Paper>
       ) : null}
     </div>

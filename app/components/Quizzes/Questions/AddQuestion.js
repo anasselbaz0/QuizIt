@@ -41,7 +41,7 @@ const AddQuestion = () => {
           {/* Answers */}
 
           {answers.length > 0 && (
-            <AnswerList list={answers} correct={correct}/>
+            <AnswerList list={answers} correct={correct} />
           )}
 
           <div className="w-full flex flex-col md:flex-row pr-4 bg-gray-100 justify-between items-end">

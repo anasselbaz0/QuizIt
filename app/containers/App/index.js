@@ -17,9 +17,9 @@ export const App = () => {
   return (
     <div className="font-sans min-h-screen bg-gray-200">
       <Helmet titleTemplate="%s - Quiz It" defaultTitle="Quiz It">
-        <meta name="description" content="Quiz It"/>
+        <meta name="description" content="Quiz It" />
       </Helmet>
-      {loggedIn ? <Navigation/> : null}
+      {loggedIn ? <Navigation /> : null}
       <div className="md:flex">
         <Switch>
           <React.Fragment>
@@ -44,9 +44,9 @@ export const App = () => {
           </React.Fragment>
         </Switch>
       </div>
-      <GlobalStyle/>
+      <GlobalStyle />
     </div>
   );
-}
+};
 
 export default App;
