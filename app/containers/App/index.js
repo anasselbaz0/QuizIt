@@ -11,36 +11,42 @@ import Profile from '../../components/Profile/Profile';
 import Quizzes from '../../components/Quizzes/Quizzes';
 import CreateQuiz from '../../components/Quizzes/CreateQuiz';
 
-export default function App() {
+export const App = () => {
   const loggedIn = useSelector(state => state.auth.loggedIn);
   const profile = useSelector(state => state.auth.profile);
   return (
     <div className="font-sans min-h-screen bg-gray-200">
       <Helmet titleTemplate="%s - Quiz It" defaultTitle="Quiz It">
-        <meta name="description" content="Quiz It" />
+        <meta name="description" content="Quiz It"/>
       </Helmet>
-      {loggedIn ? <Navigation /> : null}
-      <Switch>
-        <Route
-          exact
-          path="/"
-          component={loggedIn && profile ? HomePage : Auth}
-        />
-        <div className="md:flex">
-          {loggedIn && profile ? <Profile profile={profile} /> : Auth}
-          {/* <Switch> */}
-          <Route
-            path="/quizzes"
-            component={loggedIn && profile ? Quizzes : Auth}
-          />
-          <Route
-            path="/create"
-            component={loggedIn && profile ? CreateQuiz : Auth}
-          />
-          {/* </Switch> */}
-        </div>
-      </Switch>
-      <GlobalStyle />
+      {loggedIn ? <Navigation/> : null}
+      <div className="md:flex">
+        <Switch>
+          <React.Fragment>
+            <Route
+              exact
+              path="/"
+              component={loggedIn && profile ? HomePage : Auth}
+            />
+            {/* <Switch> */}
+            <Route
+              path="/quizzes"
+              component={loggedIn && profile ? Quizzes : Auth}
+            />
+            <Route
+              path="/profile"
+              component={loggedIn && profile ? Profile : Auth}
+            />
+            <Route
+              path="/create"
+              component={loggedIn && profile ? CreateQuiz : Auth}
+            />
+          </React.Fragment>
+        </Switch>
+      </div>
+      <GlobalStyle/>
     </div>
   );
 }
+
+export default App;

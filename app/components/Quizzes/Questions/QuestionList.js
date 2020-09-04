@@ -1,32 +1,40 @@
 import React from 'react';
-import { CheckCircle, CheckCircleOutline, Delete } from '@material-ui/icons';
-import { useSelector } from 'react-redux';
+import { CheckCircle, CheckCircleOutline, Delete, Help, SubdirectoryArrowRight } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import Item from '../Item';
-import SubTitle from '../../SubTitle';
+import clsx from 'clsx';
+import { updateQuestions } from '../state/actions';
 
-const QuestionList = props => (
-  // Display a question and it's answers
-
+const QuestionList = props => {
+  const questions = useSelector(state => state.quiz.questions);
+  const dispatch = useDispatch();
+  return (
   <div className="w-full">
-    <SubTitle> Questions </SubTitle>
-    {props.list.map((item, index) => (
+    {questions.map((item) => (
       <div
         key={item}
-        className="border rounded-md text-xs md:text-base w-full flex justify-between items-center"
+        className="text-xs md:text-base w-full flex justify-between items-start"
       >
         <div className="w-full">
-          <Item>{item.question}</Item>
-          {/* {item.answers.map(answer => ( */}
-          {/*  <Item className="ml-4"> {answer} </Item> */}
-          {/* ))} */}
+          <Item>
+            <div className="text-gray-800 mb-1">
+              <Help className="text-teal-500 hover:text-teal-400"/> {item.question}
+            </div>
+            {item.answers.map((answer, answerIndex) => (
+              <div key={answer} className="text-gray-600 font-base ml-6">
+                <SubdirectoryArrowRight className="text-teal-500 hover:text-teal-400"/>
+                <span className={item.correct.includes(answerIndex) ? "text-teal-600 font-bold" : ""}> {answer} </span>
+              </div>
+            ))}
+          </Item>
         </div>
         <Delete
           className="text-red-300 hover:text-red-500 ml-3 cursor-pointer"
-          onClick={() => console.log(index)}
+          onClick={() => dispatch(updateQuestions(questions.filter(q => q.question !== item.question)))}
         />
       </div>
     ))}
   </div>
-);
+)};
 
 export default QuestionList;

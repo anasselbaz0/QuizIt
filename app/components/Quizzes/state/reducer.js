@@ -2,7 +2,7 @@ import {
   ADD_QUESTION,
   ADD_QUIZ,
   CLOSE_ADD_QUESTION,
-  OPEN_ADD_QUESTION,
+  OPEN_ADD_QUESTION, RESET_ALL,
   SET_TITLE,
   UPDATE_ANSWERS,
   UPDATE_CORRECTS,
@@ -26,6 +26,15 @@ export default function quizReducer(state = initialState, action) {
         ...state,
         title: action.title,
       };
+    case RESET_ALL:
+      return {
+        ...state,
+        title: '',
+        questions: [],
+        answers: [],
+        correct: [],
+        addQuestion: false,
+      };
     case OPEN_ADD_QUESTION:
       return {
         ...state,
@@ -47,8 +56,8 @@ export default function quizReducer(state = initialState, action) {
             correct: action.correct,
           },
         ],
-        // answers: [],
-        // correct: [],
+        answers: [],
+        correct: [],
       };
     case UPDATE_QUESTIONS:
       return {
@@ -72,12 +81,14 @@ export default function quizReducer(state = initialState, action) {
           ...state.quizzes,
           {
             id: Date.now(),
+            uid: action.uid,
             title: action.title,
             questions: action.questions,
             correct: action.correct,
           },
         ],
-        question: [],
+        title: '',
+        questions: [],
         answers: [],
         correct: [],
       };

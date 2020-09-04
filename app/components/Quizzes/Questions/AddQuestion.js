@@ -23,7 +23,7 @@ const AddQuestion = () => {
   return (
     <div
       className={
-        (addQuestion && 'border bg-gray-100 rounded-md px-6 py-2 my-4') || ''
+        (addQuestion && 'border bg-gray-150 rounded-md px-6 py-2 my-4') || ''
       }
     >
       {addQuestion ? (
@@ -41,16 +41,16 @@ const AddQuestion = () => {
           {/* Answers */}
 
           {answers.length > 0 && (
-            <AnswerList list={answers} correct={correct} />
+            <AnswerList list={answers} correct={correct}/>
           )}
 
-          <div className="w-full flex flex-col md:flex-row justify-between items-end">
+          <div className="w-full flex flex-col md:flex-row pr-4 bg-gray-100 justify-between items-end">
             <Input
               label="Answer to add"
               placeholder="Answer here ..."
               value={answerToAdd}
               onChange={e => setAnswerToAdd(e.target.value)}
-              className="min-h-10 flex-1 md:w-full text-lg bg-gray-100 font-semibold p-2 md:p-3 rounded-sm md:mb-1 m-0 p-0"
+              className="min-h-10 flex-1 md:w-full text-lg font-semibold p-2 md:p-3 rounded-sm md:mb-1 m-0 p-0"
             />
             <div className="text-right flex-0">
               <Button
@@ -78,9 +78,10 @@ const AddQuestion = () => {
             </Button>
             <Button
               onClick={() => {
-                if (question.length > 0 && answers.length > 0)
+                if (question.length > 0 && answers.length > 0) {
                   dispatch(addToQuestions(question, answers, correct));
-                setQuestion('');
+                  setQuestion('');
+                }
               }}
             >
               {' '}

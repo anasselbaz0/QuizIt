@@ -13,6 +13,10 @@ const Navigation = () => {
       name: 'About',
       to: 'about',
     },
+    {
+      name: 'Profile',
+      to: 'profile',
+    },
   ]);
   const [menuOpened, setMenuOpened] = useState(false);
   function switchMenuState() {

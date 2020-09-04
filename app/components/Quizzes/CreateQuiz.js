@@ -8,19 +8,21 @@ import Title from '../Title';
 import AddQuestion from './Questions/AddQuestion';
 import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
-import { addQuiz, setTitle } from './state/actions';
+import { addQuiz, resetAll, setTitle } from './state/actions';
 import QuestionList from './Questions/QuestionList';
+import SubTitle from '../SubTitle';
 
 const CreateQuiz = () => {
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
-  const [addQuestion, setAddQuestion] = useState(false);
   const title = useSelector(state => state.quiz.title);
   const questions = useSelector(state => state.quiz.questions);
+  const quiz = useSelector(state => state.quiz.quizzes[state.quiz.quizzes.length - 1]) || null;
   const correct = useSelector(state => state.quiz.correct);
+  const uid = useSelector(state => state.auth.profile.uid);
 
   function getSteps() {
-    return ['Quiz title', 'Questions', 'Validation'];
+    return [`Quiz title`, 'Questions', 'Validation'];
   }
 
   function getStepContent(step) {
@@ -38,15 +40,16 @@ const CreateQuiz = () => {
       case 1:
         return (
           <React.Fragment>
-            <QuestionList list={questions} />
+            <QuestionList/>
             <AddQuestion />
           </React.Fragment>
         );
       case 2:
         return (
-          <div>
-            <QuestionList list={questions} />
-          </div>
+          <React.Fragment>
+            <SubTitle> Quiz : {title || ""} </SubTitle>
+            <QuestionList/>
+          </React.Fragment>
         );
       default:
         return 'Unknown step';
@@ -55,7 +58,6 @@ const CreateQuiz = () => {
 
   const steps = getSteps();
   const handleNext = e => {
-    console.log(activeStep);
     if (activeStep === steps.length + 1) e.preventDefault();
     setActiveStep(activeStep + 1);
   };
@@ -65,6 +67,7 @@ const CreateQuiz = () => {
   };
 
   const handleReset = () => {
+    dispatch(resetAll());
     setActiveStep(0);
   };
 
@@ -75,11 +78,10 @@ const CreateQuiz = () => {
         {steps.map((label, index) => (
           <Step key={label}>
             <StepLabel>
-              <span className="text-gray-500 font-bold"> {label} </span>
+              <span className="text-gray-600 font-bold"> {label} </span>
             </StepLabel>
             <StepContent>
               {getStepContent(index)}
-              {!addQuestion && (
                 <div className="text-right w-full">
                   <ButtonGroup>
                     <Button
@@ -89,12 +91,17 @@ const CreateQuiz = () => {
                     >
                       Back
                     </Button>
-                    <Button onClick={handleNext}>
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    {activeStep === steps.length - 1 && <Button outlined onClick={handleReset}>
+                      Reset
+                      </Button>}
+                    <Button onClick={() => {
+                      if (activeStep === steps.length - 1) dispatch(addQuiz(title, questions, correct, uid));
+                      handleNext();
+                    }}>
+                      {activeStep === steps.length - 1 ? 'Create Quiz' : 'Next'}
                     </Button>
                   </ButtonGroup>
                 </div>
-              )}
             </StepContent>
           </Step>
         ))}
@@ -107,24 +114,19 @@ const CreateQuiz = () => {
           className="ml-8 mb-4 flex flex-col md:flex-row justify-between items-end"
         >
           <div className="text-left flex-1 w-full mb-2">
-            {' '}
             All steps completed - you&apos;re finished
           </div>
-          <ButtonGroup>
-            <Button outlined onClick={handleReset}>
-              Reset
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(title);
-                console.log(questions);
-                console.log(correct);
-                dispatch(addQuiz(title, questions, correct));
-              }}
-            >
-              Create Quiz
-            </Button>
-          </ButtonGroup>
+          <div className="font-bold flex-1">
+            <div>
+              <span className="text-xl text-gray-500 pr-4">Quiz title</span>
+              <span className="text-gray-800 text-2xl md:text-3xl text-right">{quiz.title}</span>
+            </div>
+            <div>
+              <span className="text-xl text-gray-500 pr-4">Copy the quiz ID</span>
+              <span className="text-teal-400 text-2xl md:text-3xl text-right">{quiz.id}</span>
+            </div>
+          </div>
+
         </Paper>
       ) : null}
     </div>

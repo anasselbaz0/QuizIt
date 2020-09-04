@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,9 +17,14 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+const quizzesCollection = firebase.database().ref("quizzes");
+
 // Firebase functions
 export const fbSignup = (email, password) =>
   firebase.auth().createUserWithEmailAndPassword(email, password);
 
 export const fbLogin = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
+
+export const addQuizToCollection = (quiz) =>
+  quizzesCollection.push(quiz);
