@@ -6,13 +6,24 @@ import SubTitle from '../Titles/SubTitle';
 import QuestionList from './Questions/QuestionList';
 
 class Quizzes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props.getMyQuizzes();
-  }
 
   componentDidMount() {
     this.props.getMyQuizzes();
+  }
+
+  render() {
+    return (
+      <div className="flex-1 bg-white m-2 p-2 md:p-4 lg:p-8 border border-gray-300 text-gray-700 rounded">
+        <Title> My quizzes </Title>
+        {this.props.quizzes.length === 0 ? (
+          this.noQuizzes
+        ) : (
+          <div className="grid grid-cols-1 xl:grid-cols-2 border border-gray-300 text-gray-700 rounded-lg">
+            {this.listOfQuizzes}
+          </div>
+        )}
+      </div>
+    );
   }
 
   noQuizzes = (
@@ -32,21 +43,6 @@ class Quizzes extends React.Component {
       </div>
     </div>
   ));
-
-  render() {
-    return (
-      <div className="flex-1 bg-white m-2 p-2 md:p-4 lg:p-8 border border-gray-300 text-gray-700 rounded">
-        <Title> My Quizzes </Title>
-        {this.props.quizzes.length === 0 ? (
-          this.noQuizzes
-        ) : (
-          <div className="grid grid-cols-1 xl:grid-cols-2 border border-gray-300 text-gray-700 rounded-lg">
-            {this.listOfQuizzes}
-          </div>
-        )}
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = state => ({

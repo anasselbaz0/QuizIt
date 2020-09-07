@@ -25,7 +25,7 @@ const QuestionList = props => {
                 <Help className="text-teal-500 hover:text-teal-400" />{' '}
                 {item.question}
               </div>
-              {!item.answers ? (
+              {!item.answers ?
                 <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
                   No Answers found
                 </div>
