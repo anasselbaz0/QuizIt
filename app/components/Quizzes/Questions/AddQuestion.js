@@ -10,7 +10,7 @@ import {
   updateAnswers,
 } from '../state/actions';
 import AnswerList from './AnswerList';
-import SubTitle from '../../SubTitle';
+import SubTitle from '../../Titles/SubTitle';
 
 const AddQuestion = () => {
   const addQuestion = useSelector(state => state.quiz.addQuestion);

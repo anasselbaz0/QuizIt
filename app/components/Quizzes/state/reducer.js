@@ -104,7 +104,6 @@ export default function quizReducer(state = initialState, action) {
         loading: true,
       };
     case GET_MY_QUIZZES_SUCCESS:
-      console.log(action);
       return {
         ...state,
         loading: false,

@@ -22,12 +22,13 @@ export const App = () => {
       </Helmet>
       {loggedIn ? <Navigation /> : null}
       <div className="md:flex">
+        {loggedIn ? <Profile /> : null}
         <Switch>
           <React.Fragment>
             <Route exact path="/" component={loggedIn ? HomePage : Welcome} />
             {/* <Switch> */}
             <Route path="/quizzes" component={loggedIn ? Quizzes : Welcome} />
-            <Route path="/profile" component={loggedIn ? Profile : Welcome} />
+            {/*<Route path="/profile" component={loggedIn ? Profile : Welcome} />*/}
             <Route path="/create" component={loggedIn ? CreateQuiz : Welcome} />
           </React.Fragment>
         </Switch>

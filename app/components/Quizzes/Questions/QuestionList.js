@@ -12,7 +12,6 @@ const QuestionList = props => {
       No Questions found
     </div>
   );
-  console.log(props.questions);
   return (
     <div className="w-full">
       {props.questions.map((item, index) => (
@@ -26,9 +25,9 @@ const QuestionList = props => {
                 <Help className="text-teal-500 hover:text-teal-400" />{' '}
                 {item.question}
               </div>
-              {!item.answers ? (
+              {!item.answers ?
                   <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
-                  No Questions found
+                    No Answers found
                   </div>
                   :
                   item.answers.map((answer, answerIndex) => (
@@ -36,7 +35,7 @@ const QuestionList = props => {
                       <SubdirectoryArrowRight className="text-teal-500 hover:text-teal-400" />
                       <span
                         className={
-                          item.correct.includes(answerIndex)
+                          (item.correct !== undefined && item.correct.includes(answerIndex))
                             ? 'text-teal-600 font-bold'
                             : ''
                         }
@@ -44,7 +43,7 @@ const QuestionList = props => {
                         {answer}
                       </span>
                     </div>
-                  ))
+                  )
               )}
             </Item>
           </div>

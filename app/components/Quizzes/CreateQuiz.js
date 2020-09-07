@@ -4,13 +4,13 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../Input/Input';
-import Title from '../Title';
+import Title from '../Titles/Title';
 import AddQuestion from './Questions/AddQuestion';
 import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
 import { addQuiz, resetAll, setTitle } from './state/actions';
 import QuestionList from './Questions/QuestionList';
-import SubTitle from '../SubTitle';
+import SubTitle from '../Titles/SubTitle';
 
 const CreateQuiz = () => {
   const dispatch = useDispatch();

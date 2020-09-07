@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import { tryLogin, trySignup } from './Auth.actions';
 import { LOGIN, SIGNUP } from './Auth.constants';
-import Title from '../Title';
+import Title from '../Titles/Title';
 import Loader from '../Loader/Loader';
 import Link from '../Link/Link';
 import ButtonGroup from '../Button/ButtonGroup';

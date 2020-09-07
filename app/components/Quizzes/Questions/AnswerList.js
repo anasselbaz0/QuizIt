@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircle, CheckCircleOutline, Delete } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import SubTitle from '../../SubTitle';
+import SubTitle from '../../Titles/SubTitle';
 import Item from '../Item';
 import { updateAnswers, updateCorrects } from '../state/actions';
 

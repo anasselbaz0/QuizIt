@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Title from '../Title';
+import Title from '../Titles/Title';
 import { getMyQuizzes } from './state/actions';
-import SubTitle from '../SubTitle';
+import SubTitle from '../Titles/SubTitle';
 import QuestionList from './Questions/QuestionList';
 
 class Quizzes extends React.Component {
@@ -22,7 +22,7 @@ class Quizzes extends React.Component {
   );
 
   listOfQuizzes = this.props.quizzes.map(quiz => (
-    <div className="bg-gray-200 cursor-pointer p-8">
+    <div key={quiz.id} className="bg-white hover:bg-gray-200 cursor-pointer p-8 border border-b">
       <SubTitle> {quiz.title} </SubTitle>
       <div className="mt-3 block">
         <QuestionList questions={quiz.questions || []} />
