@@ -22,7 +22,10 @@ class Quizzes extends React.Component {
   );
 
   listOfQuizzes = this.props.quizzes.map(quiz => (
-    <div key={quiz.id} className="bg-white hover:bg-gray-200 cursor-pointer p-8 border border-b">
+    <div
+      key={quiz.id}
+      className="bg-white hover:bg-gray-200 cursor-pointer p-8 border border-b"
+    >
       <SubTitle> {quiz.title} </SubTitle>
       <div className="mt-3 block">
         <QuestionList questions={quiz.questions || []} />
