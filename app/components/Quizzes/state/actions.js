@@ -11,6 +11,25 @@ export const ADD_QUIZ = 'ADD_QUIZ';
 export const ADD_QUIZ_SUCCESS = 'ADD_QUIZ_SUCCESS';
 export const ADD_QUIZ_FAIL = 'ADD_QUIZ_FAIL';
 
+export const GET_MY_QUIZZES = 'GET_MY_QUIZZES';
+export const GET_MY_QUIZZES_SUCCESS = 'GET_MY_QUIZZES_SUCCESS';
+export const GET_MY_QUIZZES_FAIL = 'GET_MY_QUIZZES_FAIL';
+
+export const getMyQuizzes = uid => ({
+  type: GET_MY_QUIZZES,
+  uid,
+});
+
+export const getMyQuizzesSuccess = quizzes => ({
+  type: GET_MY_QUIZZES_SUCCESS,
+  quizzes,
+});
+
+export const getMyQuizzesFail = error => ({
+  type: GET_MY_QUIZZES_FAIL,
+  error,
+});
+
 export const addQuiz = (title, questions, correct, uid) => ({
   type: ADD_QUIZ,
   title,

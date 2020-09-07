@@ -1,9 +1,60 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Title from '../Title';
+import { getMyQuizzes } from './state/actions';
+import SubTitle from '../SubTitle';
+import QuestionList from './Questions/QuestionList';
 
-const Quizzes = () => (
-  <div className="flex-1 p-2 md:p-4 bg-white rounded-sm shadow-sm m-2">
-    <div className="text-left text-sm font-medium text-gray-400"> ss </div>
-  </div>
-);
+class Quizzes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.getMyQuizzes();
+  }
 
-export default Quizzes;
+  componentDidMount() {
+    this.props.getMyQuizzes();
+  }
+
+  noQuizzes = (
+    <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
+      No Quizzes found
+    </div>
+  );
+
+  listOfQuizzes = this.props.quizzes.map(quiz => (
+    <div className="bg-gray-200 cursor-pointer p-8">
+      <SubTitle> {quiz.title} </SubTitle>
+      <div className="mt-3 block">
+        <QuestionList questions={quiz.questions || []} />
+      </div>
+    </div>
+  ));
+
+  render() {
+    return (
+      <div className="flex-1 bg-white m-2 p-2 md:p-4 lg:p-8 border border-gray-300 text-gray-700 rounded">
+        <Title> My Quizzes </Title>
+        {this.props.quizzes.length === 0 ? (
+          this.noQuizzes
+        ) : (
+          <div className="grid grid-cols-1 xl:grid-cols-2 border border-gray-300 text-gray-700 rounded-lg">
+            {this.listOfQuizzes}
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  quizzes: state.quiz.quizzes,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getMyQuizzes: () => dispatch(getMyQuizzes()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Quizzes);

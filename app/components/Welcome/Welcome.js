@@ -49,8 +49,7 @@ const Welcome = () => {
           <div className="text-lg text-center mt-4 md:text-xl px-8 font-hairline max-w-xl">
             Quiz It is a platform that allows you to create and host your tests
             or quizzes in our server. And invite others to take your quiz
-            through an invite link. The results will be sent to the host by
-            email.
+            through a PIN Quiz. The results will be sent to the host by email.
           </div>
         </div>
       )}

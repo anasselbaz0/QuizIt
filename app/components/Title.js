@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Quizzes = props => (
-  <div className="font-serif text-2xl md:text-3xl font-bold text-teal-800">
-    {' '}
-    {props.children}{' '}
+const Title = props => (
+  <div className="font-serif text-2xl mt-1 mb-4 md:text-3xl xl:text-4xl font-bold text-teal-800">
+    {props.children}
   </div>
 );
 
-export default Quizzes;
+export default Title;

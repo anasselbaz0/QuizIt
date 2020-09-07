@@ -2,6 +2,9 @@ import {
   ADD_QUESTION,
   ADD_QUIZ,
   CLOSE_ADD_QUESTION,
+  GET_MY_QUIZZES,
+  GET_MY_QUIZZES_FAIL,
+  GET_MY_QUIZZES_SUCCESS,
   OPEN_ADD_QUESTION,
   RESET_ALL,
   SET_TITLE,
@@ -17,6 +20,8 @@ const initialState = {
   answers: [],
   correct: [],
   addQuestion: false,
+  loading: false,
+  error: '',
 };
 
 // eslint-disable-next-line consistent-return
@@ -92,6 +97,24 @@ export default function quizReducer(state = initialState, action) {
         questions: [],
         answers: [],
         correct: [],
+      };
+    case GET_MY_QUIZZES:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_MY_QUIZZES_SUCCESS:
+      console.log(action);
+      return {
+        ...state,
+        loading: false,
+        quizzes: [...action.quizzes],
+      };
+    case GET_MY_QUIZZES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
       };
     default:
       return state;

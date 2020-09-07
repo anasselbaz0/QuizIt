@@ -17,7 +17,11 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-const quizzesCollection = firebase.database().ref('quizzes');
+const getQuizzesCollection = () => {
+  if (firebase.auth().currentUser === null) return null;
+  const path = `quizzes/${firebase.auth().currentUser.uid}`;
+  return firebase.database().ref(path);
+};
 
 // Firebase functions
 export const fbSignup = (email, password) =>
@@ -26,4 +30,15 @@ export const fbSignup = (email, password) =>
 export const fbLogin = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
-export const addQuizToCollection = quiz => quizzesCollection.push(quiz);
+export const addQuizToCollection = quiz => getQuizzesCollection().push(quiz);
+
+export const fbGetMyQuizzes = () =>
+  getQuizzesCollection()
+    .once('value')
+    .then(function(snapshots) {
+      const myQuizzes = [];
+      snapshots.forEach(snapshot => {
+        myQuizzes.push(snapshot.val());
+      });
+      return myQuizzes;
+    });

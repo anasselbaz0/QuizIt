@@ -42,7 +42,7 @@ const CreateQuiz = () => {
       case 1:
         return (
           <React.Fragment>
-            <QuestionList />
+            <QuestionList questions={questions} />
             <AddQuestion />
           </React.Fragment>
         );
@@ -50,7 +50,7 @@ const CreateQuiz = () => {
         return (
           <React.Fragment>
             <SubTitle> Quiz : {title || ''} </SubTitle>
-            <QuestionList />
+            <QuestionList questions={questions} />
           </React.Fragment>
         );
       default:
@@ -133,9 +133,7 @@ const CreateQuiz = () => {
               </span>
             </div>
             <div>
-              <span className="text-xl text-gray-500 pr-4">
-                Copy the quiz ID
-              </span>
+              <span className="text-xl text-gray-500 pr-4">Quiz PIN</span>
               <span className="text-teal-400 text-2xl md:text-3xl text-right">
                 {quiz.id}
               </span>

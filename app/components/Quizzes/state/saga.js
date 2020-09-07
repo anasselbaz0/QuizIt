@@ -1,6 +1,11 @@
 import { put, call } from 'redux-saga/effects';
-import { addQuizFail, addQuizSuccess } from './actions';
-import { addQuizToCollection } from '../../../../firebase';
+import {
+  addQuizFail,
+  addQuizSuccess,
+  getMyQuizzesFail,
+  getMyQuizzesSuccess,
+} from './actions';
+import { addQuizToCollection, fbGetMyQuizzes } from '../../../../firebase';
 
 export function* addQuiz(action) {
   const quiz = {
@@ -15,5 +20,14 @@ export function* addQuiz(action) {
     yield put(addQuizSuccess());
   } catch (error) {
     yield put(addQuizFail(error));
+  }
+}
+
+export function* getMyQuizzes(action) {
+  try {
+    const quizzes = yield call(fbGetMyQuizzes);
+    yield put(getMyQuizzesSuccess(quizzes));
+  } catch (error) {
+    yield put(getMyQuizzesFail(error));
   }
 }

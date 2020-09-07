@@ -1,22 +1,21 @@
 import React from 'react';
-import {
-  CheckCircle,
-  CheckCircleOutline,
-  Delete,
-  Help,
-  SubdirectoryArrowRight,
-} from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import clsx from 'clsx';
+import { Delete, Help, SubdirectoryArrowRight } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
 import Item from '../Item';
 import { updateQuestions } from '../state/actions';
 
 const QuestionList = props => {
-  const questions = useSelector(state => state.quiz.questions);
   const dispatch = useDispatch();
+
+  const noQuizzes = (
+    <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
+      No Questions found
+    </div>
+  );
+  console.log(props.questions);
   return (
     <div className="w-full">
-      {questions.map((item, index) => (
+      {props.questions.map((item, index) => (
         <div
           key={index}
           className="text-xs md:text-base w-full flex justify-between items-start"
@@ -27,20 +26,26 @@ const QuestionList = props => {
                 <Help className="text-teal-500 hover:text-teal-400" />{' '}
                 {item.question}
               </div>
-              {item.answers.map((answer, answerIndex) => (
-                <div key={answer} className="text-gray-600 font-base ml-6">
-                  <SubdirectoryArrowRight className="text-teal-500 hover:text-teal-400" />
-                  <span
-                    className={
-                      item.correct.includes(answerIndex)
-                        ? 'text-teal-600 font-bold'
-                        : ''
-                    }
-                  >
-                    {answer}
-                  </span>
-                </div>
-              ))}
+              {!item.answers ? (
+                  <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
+                  No Questions found
+                  </div>
+                  :
+                  item.answers.map((answer, answerIndex) => (
+                    <div key={answer} className="text-gray-600 font-base ml-6">
+                      <SubdirectoryArrowRight className="text-teal-500 hover:text-teal-400" />
+                      <span
+                        className={
+                          item.correct.includes(answerIndex)
+                            ? 'text-teal-600 font-bold'
+                            : ''
+                        }
+                      >
+                        {answer}
+                      </span>
+                    </div>
+                  ))
+              )}
             </Item>
           </div>
           <Delete
@@ -48,7 +53,7 @@ const QuestionList = props => {
             onClick={() =>
               dispatch(
                 updateQuestions(
-                  questions.filter(q => q.question !== item.question),
+                  props.questions.filter(q => q.question !== item.question),
                 ),
               )
             }
