@@ -25,17 +25,18 @@ const QuestionList = props => {
                 <Help className="text-teal-500 hover:text-teal-400" />{' '}
                 {item.question}
               </div>
-              {!item.answers ?
+              {!item.answers ? (
                 <div className="w-full text-center text-gray-500 font-bold text-xl p-4">
                   No Answers found
                 </div>
-                :
+              ) : (
                 item.answers.map((answer, answerIndex) => (
                   <div key={answer} className="text-gray-600 font-base ml-6">
                     <SubdirectoryArrowRight className="text-teal-500 hover:text-teal-400" />
                     <span
                       className={
-                        (item.correct !== undefined && item.correct.includes(answerIndex))
+                        item.correct !== undefined &&
+                        item.correct.includes(answerIndex)
                           ? 'text-teal-600 font-bold'
                           : ''
                       }
@@ -43,8 +44,8 @@ const QuestionList = props => {
                       {answer}
                     </span>
                   </div>
-                )
-                )}
+                ))
+              )}
             </Item>
           </div>
           <Delete

@@ -13,7 +13,7 @@ const Input = props => (
   >
     {!props.noLabel && (
       <label
-        className="block font-sans text-gray-700 text-sm font-bold mb-1 md:mb-2"
+        className="block font-sans text-gray-700 text-base font-bold mb-1 md:mb-2"
         htmlFor={props.label.toLowerCase().replace(' ', '_')}
       >
         {props.label}

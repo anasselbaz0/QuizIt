@@ -4,7 +4,7 @@ import clsx from 'clsx';
 const ButtonGroup = props => (
   <div
     className={clsx(
-      'my-3 w-full flex flex-1 flex-col md:block',
+      'mb-3 flex flex-1 flex-col md:text-right md:block',
       props.className || '',
     )}
   >

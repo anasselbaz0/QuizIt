@@ -6,7 +6,6 @@ import SubTitle from '../Titles/SubTitle';
 import QuestionList from './Questions/QuestionList';
 
 class Quizzes extends React.Component {
-
   componentDidMount() {
     this.props.getMyQuizzes();
   }
