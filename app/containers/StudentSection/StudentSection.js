@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
-import ButtonGroup from '../../components/Button/ButtonGroup';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import Input from '../../components/Input/Input';
+import Button from '../../components/Button/Button';
+import ButtonGroup from '../../components/Button/ButtonGroup';
 import { loadQuizRequest, setPin } from './state/actions';
 
-
 const StudentSection = () => {
-
   const dispatch = useDispatch();
   const [confirmation, setConfirmation] = useState(false);
   const pinFromStore = useSelector(state => state.student.pin);
@@ -29,9 +27,8 @@ const StudentSection = () => {
     onSubmit: values => {
       dispatch(setPin(values.pin));
       setConfirmation(true);
-    }
+    },
   });
-
 
   return (
     <div className="min-w-2xl flex flex-col items-center justify-center">
@@ -43,8 +40,7 @@ const StudentSection = () => {
           className="m-auto flex-auto bg-white p-2 w-full rounded-lg"
           onSubmit={formik.handleSubmit}
         >
-          {!confirmation
-            ?
+          {!confirmation ? (
             <Input
               focus
               label="Pin"
@@ -58,26 +54,30 @@ const StudentSection = () => {
                   : null
               }
             />
-            :
+          ) : (
             <div className="text-gray-600 font-semibold">
-              The PIN is : <span className="text-2xl md:text-3xl text-teal-500 font-bold"> {pinFromStore} </span>
+              The PIN is :{' '}
+              <span className="text-2xl md:text-3xl text-teal-500 font-bold">
+                {' '}
+                {pinFromStore}{' '}
+              </span>
             </div>
-          }
+          )}
           <div className="flex mb-0">
-            {!confirmation
-              ?
+            {!confirmation ? (
               <ButtonGroup>
-                <Button type="reset" outlined onClick={() => formik.resetForm()}>
+                <Button
+                  type="reset"
+                  outlined
+                  onClick={() => formik.resetForm()}
+                >
                   Clear
                 </Button>
-                <Button
-                  className="md:ml-2"
-                  type="submit"
-                >
+                <Button className="md:ml-2" type="submit">
                   Enter
                 </Button>
               </ButtonGroup>
-              :
+            ) : (
               <ButtonGroup>
                 <Button outlined onClick={() => setConfirmation(false)}>
                   Back
@@ -89,13 +89,12 @@ const StudentSection = () => {
                   Confirm PIN
                 </Button>
               </ButtonGroup>
-            }
+            )}
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default StudentSection;
-
